@@ -1,0 +1,9 @@
+{
+  "name": "internal-lead-hh",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:generate": "prisma generate"
+  }
+}
