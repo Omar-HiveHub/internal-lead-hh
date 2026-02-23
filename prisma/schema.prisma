@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum SourceList {
+  HVAC
+  REMODELING_ROOFING_LANDSCAPING @map("Remodeling/Roofing/Landscaping")
+}
+
+enum EnrichStatus {
+  IDLE    @map("idle")
+  RUNNING @map("running")
+  DONE    @map("done")
+  ERROR   @map("error")
+}
+
+model BusinessRow {
+  id               Int          @id @default(autoincrement())
+  source_list      SourceList
+  business_name    String
+  city             String
+  state            String
+  phone            String?
+  address          String?
+  website_url      String
+  instagram_url    String
+  dm1_name         String
+  dm1_title        String
+  dm1_source_url   String
+  dm2_name         String
+  dm2_title        String
+  dm2_source_url   String
+  confidence       Int
+  notes            String
+  enrich_status    EnrichStatus @default(IDLE)
+  enrich_error     String?
+  last_enriched_at DateTime?
+  created_at       DateTime     @default(now())
+  updated_at       DateTime     @updatedAt
+
+  @@index([business_name])
+  @@index([city])
+  @@index([state])
+  @@index([enrich_status])
+  @@index([created_at])
+}
